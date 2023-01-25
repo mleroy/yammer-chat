@@ -1,0 +1,21 @@
+﻿<phone:PhoneApplicationPage x:Class="Yammer.Chat.WP.Views.ProfileView"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:controls="clr-namespace:Yammer.Chat.WP.Controls"
+                            xmlns:design="clr-namespace:Yammer.Chat.ViewModels.Design;assembly=Yammer.Chat.ViewModels"
+                            xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+                            d:DataContext="{d:DesignInstance Type=design:ProfileDesignViewModel, IsDesignTimeCreatable=True}"
+                            mc:Ignorable="d"
+                            Style="{StaticResource StandardPage}">
+
+    <controls:PageContent Header="{Binding User.FullName}"
+                          Background="{StaticResource BackgroundBrush}">
+        
+            <controls:UserProfile User="{Binding User}" />
+        
+    </controls:PageContent>
+</phone:PhoneApplicationPage>

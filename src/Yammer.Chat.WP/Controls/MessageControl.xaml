@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="Yammer.Chat.WP.Controls.MessageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Yammer.Chat.WP.Controls"
+             xmlns:design="clr-namespace:Yammer.Chat.ViewModels.Design;assembly=Yammer.Chat.ViewModels"
+             xmlns:converters="clr-namespace:Yammer.Chat.WP.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:triggers="clr-namespace:Yammer.Chat.WP.Triggers"
+             xmlns:behaviors="clr-namespace:Yammer.Chat.WP.Behaviors"
+             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+             mc:Ignorable="d"
+             d:DesignHeight="200"
+             x:Name="RootControl">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:MugshotTemplateConverter x:Key="MugshotTemplateConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <converters:EnumerableToVisibilityConverter x:Key="EnumerableToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          DataContext="{Binding ElementName=RootControl}"
+          d:DataContext="{d:DesignInstance Type=design:MessageControlViewModel, IsDesignTimeCreatable=True}"
+          Margin="{StaticResource PhoneMargin}"
+          HorizontalAlignment="{Binding HorizontalAlignment}"
+          toolkit:TiltEffect.IsTiltEnabled="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Ellipse Grid.Row="1"
+                 VerticalAlignment="Top"
+                 Margin="{StaticResource PhoneRightMargin}"
+                 Width="{StaticResource MugshotSmallSizeDouble}"
+                 Height="{StaticResource MugshotSmallSizeDouble}"
+                 Stroke="{StaticResource SecondaryLightBrush}"
+                 StrokeThickness="1"
+                 Visibility="{Binding Message.IsFromCurrentUser, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=I}">
+            <Ellipse.Fill>
+                <ImageBrush>
+                    <ImageBrush.ImageSource>
+                        <BitmapImage UriSource="{Binding Message.Sender.MugshotTemplate, Converter={StaticResource MugshotTemplateConverter}, ConverterParameter={StaticResource MugshotSmallSizeDouble}}"
+                                     DecodePixelType="Logical"
+                                     DecodePixelWidth="{StaticResource MugshotSmallSizeInt}"
+                                     DecodePixelHeight="{StaticResource MugshotSmallSizeInt}"
+                                     CreateOptions="BackgroundCreation" />
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="2"
+                   Text="{Binding Message.Sender.FullName}"
+                   Foreground="{StaticResource SecondaryDarkBrush}"
+                   FontSize="{StaticResource PhoneFontSizeSmall}"
+                   Margin="{StaticResource PhoneBottomMargin}"
+                   TextTrimming="WordEllipsis"
+                   Visibility="{Binding Message.IsFromCurrentUser, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=I}" />
+
+        <Path Grid.Row="1"
+              Grid.Column="1"
+              Fill="{Binding BubbleBackground}"
+              Margin="0,18,0,0"
+              Visibility="{Binding Message.IsFromCurrentUser, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=I}">
+            <Path.Data>
+                <PathGeometry>
+                    <PathGeometry.Figures>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="0,0">
+                                <PathFigure.Segments>
+                                    <PathSegmentCollection>
+                                        <ArcSegment Point="15,11"
+                                                    Size="15,15" />
+                                        <LineSegment Point="15,0" />
+                                        <ArcSegment SweepDirection="Clockwise"
+                                                    Point="0,0"
+                                                    Size="25,25" />
+                                    </PathSegmentCollection>
+                                </PathFigure.Segments>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry.Figures>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+
+        <Path Grid.Row="1"
+              Grid.Column="3"
+              Fill="{Binding BubbleBackground}"
+              Margin="14,18,-14,0"
+              Visibility="{Binding Message.IsFromCurrentUser, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Path.Data>
+                <PathGeometry>
+                    <PathGeometry.Figures>
+                        <PathFigureCollection>
+                            <PathFigure StartPoint="0,0">
+                                <PathFigure.Segments>
+                                    <PathSegmentCollection>
+                                        <ArcSegment Point="15,11"
+                                                    Size="15,15" />
+                                        <LineSegment Point="15,0" />
+                                        <ArcSegment SweepDirection="Clockwise"
+                                                    Point="0,0"
+                                                    Size="25,25" />
+                                    </PathSegmentCollection>
+                                </PathFigure.Segments>
+                            </PathFigure>
+                        </PathFigureCollection>
+                    </PathGeometry.Figures>
+                </PathGeometry>
+            </Path.Data>
+            <Path.RenderTransform>
+                <ScaleTransform ScaleX="-1" />
+            </Path.RenderTransform>
+        </Path>
+
+        <Border Grid.Row="1"
+                Grid.Column="2"
+                Background="{Binding BubbleBackground}"
+                CornerRadius="5">
+            <StackPanel Margin="{StaticResource PhoneMargin}">
+                <TextBlock Text="{Binding Message.Body}"
+                           Visibility="{Binding Message.Body, Converter={StaticResource NullToVisibilityConverter}}"
+                           Foreground="{Binding BodyForeground}"
+                           TextWrapping="Wrap"
+                           TextTrimming="WordEllipsis"
+                           FontSize="{StaticResource FontSizeNormal}"/>
+
+                <ItemsControl ItemsSource="{Binding Message.Attachments}"
+                              Visibility="{Binding Message.Attachments, Converter={StaticResource EnumerableToVisibilityConverter}}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- DecodePixelWidth to a value above the max width to ensure best quality -->
+                            <controls:AuthenticatedImage Source="{Binding Preview}"
+                                                         HttpService="{Binding Path=DataContext.HttpService, ElementName=LayoutRoot}"
+                                                         Margin="4"
+                                                         DecodePixelWidth="300" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding Message.Likers.Count, Converter={StaticResource NullToVisibilityConverter}}">
+
+                    <Path Grid.Row="1"
+                          Width="14"
+                          Stretch="Uniform"
+                          Fill="{Binding LikeForeground}"
+                          Margin="0,0,8,0"
+                          Data="F1 M 122.82,75.1768C 122.456,77.9242 127.258,82.5621 127.27,85.3304C 127.275,87.9685 121.78,91.5804 121.557,94.2159C 121.333,96.8474 124.409,101.415 124.414,104.054C 124.419,107.755 118.513,111.168 117.115,113.892C 116.167,115.73 117.28,120.238 116.477,122.143C 115.073,125.461 109.13,130.631 105.688,131.664C 94.7448,134.953 59.9923,131.664 59.9923,131.664L 31.9988,126.457L 31.9988,71.7914L 34.6655,71.7914C 38.6655,71.7914 45.6642,66.2236 55.1081,42.1728C 56.6427,38.2595 59.5535,36.0127 62.8816,33.445C 68.4219,29.1703 72.5612,23.1728 73.9505,1.55443C 74.1433,-1.42741 83.4688,-0.983414 88.5494,5.67805C 92.7097,11.1299 93.2644,21.7432 89.974,29.7419C 87.7344,35.2008 79.5886,47.8421 82.5157,52.9619C 82.5157,52.9619 112.482,51.846 118.378,54.2315C 122.091,55.734 127.496,63.5608 127.263,67.5608C 127.133,69.7601 123.108,72.9919 122.82,75.1768 Z M 26.6666,125.123C 26.6666,128.069 24.2786,130.457 21.3333,130.457L 5.33331,130.457C 2.38809,130.457 0,128.069 0,125.123L 0,74.4581C 0,71.5127 2.38809,69.1247 5.33331,69.1247L 21.3333,69.1247C 24.2786,69.1247 26.6666,71.5127 26.6666,74.4581L 26.6666,125.123 Z " />
+
+                    <controls:PluralityTextBlock Source="{Binding Message.Likers}"
+                                                 SingularValue="{Binding Source={StaticResource Strings}, Path=Resources.LikersSingularText}"
+                                                 PluralValue="{Binding Source={StaticResource Strings}, Path=Resources.LikersPluralText}"
+                                                 Foreground="{Binding LikeForeground}"
+                                                 FontSize="{StaticResource PhoneFontSizeSmall}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="SingleTap">
+            <cal:ActionMessage MethodName="ViewMessage">
+                <cal:Parameter Value="$dataContext" />
+            </cal:ActionMessage>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="DoubleTap">
+            <cal:ActionMessage MethodName="LikeUnlikeMessage">
+                <cal:Parameter Value="$dataContext" />
+            </cal:ActionMessage>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+</UserControl>

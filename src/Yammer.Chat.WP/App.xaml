@@ -1,0 +1,20 @@
+﻿<Application x:Class="Yammer.Chat.WP.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+             xmlns:local="clr-namespace:Yammer.Chat.WP"
+             xmlns:converters="clr-namespace:Yammer.Chat.WP.Converters"
+             xmlns:core="clr-namespace:Yammer.Chat.Core;assembly=Yammer.Chat.Core">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Common.xaml" />
+                <ResourceDictionary Source="Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <core:LocalizedStrings x:Key="Strings" />
+            <local:Bootstrapper x:Key="bootstrapper" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

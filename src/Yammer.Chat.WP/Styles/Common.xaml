@@ -1,0 +1,47 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:core="clr-namespace:System;assembly=mscorlib">
+
+    <Color x:Key="PrimaryColor">#0072C6</Color>
+    <Color x:Key="PrimaryDarkColor">#005088</Color>
+    <Color x:Key="SecondaryDarkestColor">#333</Color>
+    <Color x:Key="SecondaryDarkerColor">#666</Color>
+    <Color x:Key="SecondaryDarkColor">#767676</Color>
+    <Color x:Key="SecondaryNeutralColor">#999</Color>
+    <Color x:Key="SecondaryLightColor">#CCC</Color>
+    <Color x:Key="SecondaryLighterColor">#E8E8E8</Color>
+    <Color x:Key="SecondaryLightestColor">#F5F5F5</Color>
+    <Color x:Key="AccentColor">#BA141A</Color>
+    
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+    <SolidColorBrush x:Key="SecondaryDarkestBrush" Color="{StaticResource SecondaryDarkestColor}"/>
+    <SolidColorBrush x:Key="SecondaryDarkerBrush" Color="{StaticResource SecondaryDarkerColor}"/>
+    <SolidColorBrush x:Key="SecondaryDarkBrush" Color="{StaticResource SecondaryDarkColor}"/>
+    <SolidColorBrush x:Key="SecondaryNeutralBrush" Color="{StaticResource SecondaryNeutralColor}"/>
+    <SolidColorBrush x:Key="SecondaryLightBrush" Color="{StaticResource SecondaryLightColor}"/>
+    <SolidColorBrush x:Key="SecondaryLighterBrush" Color="{StaticResource SecondaryLighterColor}"/>
+    <SolidColorBrush x:Key="SecondaryLightestBrush" Color="{StaticResource SecondaryLightestColor}"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+    
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource SecondaryLighterColor}"/>
+
+    <Thickness x:Key="PhoneTopMargin">0,12,0,0</Thickness>
+    <Thickness x:Key="PhoneRightMargin">0,0,12,0</Thickness>
+    <Thickness x:Key="PhoneLeftMargin">12,0,0,0</Thickness>
+    <Thickness x:Key="PhoneBottomMargin">0,0,0,12</Thickness>
+
+    <core:Int32 x:Key="MugshotDefaultSizeInt">70</core:Int32>
+    <core:Int32 x:Key="MugshotSmallSizeInt">40</core:Int32>
+    <core:Int32 x:Key="MugshotMediumSizeInt">50</core:Int32>
+    <core:Int32 x:Key="MugshotLargeSizeInt">100</core:Int32>
+    
+    <core:Double x:Key="MugshotDefaultSizeDouble">70</core:Double>
+    <core:Double x:Key="MugshotSmallSizeDouble">40</core:Double>
+    <core:Double x:Key="MugshotMediumSizeDouble">50</core:Double>
+    <core:Double x:Key="MugshotLargeSizeDouble">100</core:Double>
+    
+    <core:Double x:Key="FontSizeNormal">21</core:Double>
+</ResourceDictionary>

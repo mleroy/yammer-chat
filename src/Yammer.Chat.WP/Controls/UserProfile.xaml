@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Yammer.Chat.WP.Controls.UserProfile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:Yammer.Chat.WP.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="480"
+             d:DesignWidth="480"
+             x:Name="RootControl">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:MugshotTemplateConverter x:Key="MugshotTemplateConverter" />
+            <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+
+            <Style TargetType="TextBlock"
+                   x:Key="ProfileHeader">
+                <Setter Property="Foreground"
+                        Value="{StaticResource SecondaryDarkestBrush}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource FontSizeNormal}" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource PhoneFontFamilySemiBold}" />
+                <Setter Property="Margin"
+                        Value="{StaticResource PhoneTopMargin}" />
+            </Style>
+
+            <Style TargetType="TextBlock"
+                   x:Key="ProfileValue">
+                <Setter Property="Foreground"
+                        Value="{StaticResource SecondaryDarkestBrush}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource FontSizeNormal}" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource PhoneFontFamilyNormal}" />
+                <Setter Property="Margin"
+                        Value="{StaticResource PhoneBottomMargin}" />
+            </Style>
+
+            <Style TargetType="TextBlock"
+                   x:Key="ProfileValueWatermark"
+                   BasedOn="{StaticResource ProfileValue}">
+                <Setter Property="Foreground"
+                        Value="{StaticResource SecondaryDarkBrush}" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel x:Name="LayoutRoot"
+                DataContext="{Binding ElementName=RootControl}"
+                Background="{StaticResource BackgroundBrush}">
+        <StackPanel Orientation="Horizontal"
+                    Margin="{StaticResource PhoneVerticalMargin}">
+            <Ellipse Grid.RowSpan="2"
+                     Margin="{StaticResource PhoneMargin}"
+                     Width="{StaticResource MugshotLargeSizeDouble}"
+                     Height="{StaticResource MugshotLargeSizeDouble}"
+                     Stroke="{StaticResource SecondaryNeutralBrush}"
+                     StrokeThickness="1">
+                <Ellipse.Fill>
+                    <ImageBrush>
+                        <ImageBrush.ImageSource>
+                            <BitmapImage UriSource="{Binding User.MugshotTemplate, Converter={StaticResource MugshotTemplateConverter}, ConverterParameter={StaticResource MugshotLargeSizeDouble}}"
+                                         DecodePixelType="Logical"
+                                         DecodePixelWidth="{StaticResource MugshotLargeSizeInt}"
+                                         DecodePixelHeight="{StaticResource MugshotLargeSizeInt}"
+                                         CreateOptions="BackgroundCreation" />
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <StackPanel Margin="{StaticResource PhoneVerticalMargin}">
+                <TextBlock Grid.Column="1"
+                           Text="{Binding User.FullName}"
+                           FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                           FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                           Foreground="{StaticResource SecondaryDarkestBrush}" />
+
+                <TextBlock Grid.Column="1"
+                           Grid.Row="1"
+                           Text="{Binding User.JobTitle}"
+                           FontSize="{StaticResource PhoneFontSizeMedium}"
+                           Foreground="{StaticResource SecondaryDarkerBrush}" />
+            </StackPanel>
+        </StackPanel>
+
+        <Border Background="White"
+                Padding="{StaticResource PhoneHorizontalMargin}"
+                BorderThickness="0,1"
+                BorderBrush="{StaticResource SecondaryLightBrush}">
+            <StackPanel>
+
+                <!-- About Me -->
+                <TextBlock Text="{Binding Source={StaticResource Strings}, Path=Resources.ProfileAboutMeText}"
+                           Style="{StaticResource ProfileHeader}" />
+
+                <TextBlock Text="{Binding Source={StaticResource Strings}, Path=Resources.ProfileAboutMeWatermarkText}"
+                           Visibility="{Binding User.Summary, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=I, FallbackValue=Collapsed}"
+                           Style="{StaticResource ProfileValueWatermark}" />
+
+                <TextBlock Text="{Binding User.Summary}"
+                           Visibility="{Binding User.Summary, Converter={StaticResource NullToVisibilityConverter}}"
+                           TextWrapping="Wrap"
+                           Style="{StaticResource ProfileValue}" />
+
+                <!-- Work phone -->
+                <TextBlock Text="{Binding Source={StaticResource Strings}, Path=Resources.ProfileWorkPhoneText}"
+                           Style="{StaticResource ProfileHeader}" />
+
+                <TextBlock Text="{Binding Source={StaticResource Strings}, Path=Resources.ProfilePhoneWatermarkText}"
+                           Visibility="{Binding User.WorkPhone, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=I, FallbackValue=Collapsed}"
+                           Style="{StaticResource ProfileValueWatermark}" />
+
+                <TextBlock Text="{Binding User.WorkPhone}"
+                           Visibility="{Binding User.WorkPhone, Converter={StaticResource NullToVisibilityConverter}}"
+                           Style="{StaticResource ProfileValue}" />
+
+                <!-- Mobile phone -->
+                <TextBlock Text="{Binding Source={StaticResource Strings}, Path=Resources.ProfileMobilePhoneText}"
+                           Style="{StaticResource ProfileHeader}" />
+
+                <TextBlock Text="{Binding Source={StaticResource Strings}, Path=Resources.ProfilePhoneWatermarkText}"
+                           Visibility="{Binding User.MobilePhone, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=I, FallbackValue=Collapsed}"
+                           Style="{StaticResource ProfileValueWatermark}" />
+
+                <TextBlock Text="{Binding User.MobilePhone}"
+                           Visibility="{Binding User.MobilePhone, Converter={StaticResource NullToVisibilityConverter}}"
+                           Style="{StaticResource ProfileValue}" />
+
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

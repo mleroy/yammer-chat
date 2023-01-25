@@ -1,0 +1,22 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d">
+
+    <!--
+    These styles are parsed on app startup. Only reference styles common enough between all pages of the application.
+    -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Button.xaml"/>
+        <ResourceDictionary Source="Image.xaml" />
+        <ResourceDictionary Source="LongListSelector.xaml"/>
+        <ResourceDictionary Source="Page.xaml"/>
+        <ResourceDictionary Source="TextBlock.xaml"/>
+        <ResourceDictionary Source="TextBox.xaml"/>
+        <ResourceDictionary Source="WatermarkTextBox.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

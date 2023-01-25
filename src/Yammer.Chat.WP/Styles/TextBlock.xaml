@@ -1,0 +1,41 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Yammer.Chat.WP.Controls"
+    xmlns:core="clr-namespace:System;assembly=mscorlib">
+
+    <!-- TODO: Figure out why some files require referencing the common styles to access PrimaryColor, etc., while others do not -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Common.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <Style TargetType="TextBlock" x:Key="ListTemplateTextStyle">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="{StaticResource PhoneMargin}"/>
+        <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
+        <Setter Property="Foreground" Value="{StaticResource SecondaryNeutralBrush}"/>
+    </Style>
+    
+    <Style TargetType="TextBlock" x:Key="ErrorStyle">
+        <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
+    </Style>
+    
+    <Style TargetType="controls:PluralityTextBlock">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:PluralityTextBlock">
+                    <TextBlock x:Name="PART_TextBlock"
+                               Foreground="{TemplateBinding Foreground}"
+                               FontSize="{TemplateBinding FontSize}"
+                               FontFamily="{TemplateBinding FontFamily}"
+                               FontWeight="{TemplateBinding FontWeight}"
+                               Padding="{TemplateBinding Padding}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

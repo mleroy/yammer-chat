@@ -1,0 +1,79 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Yammer.Chat.WP.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:converters="clr-namespace:Yammer.Chat.WP.Converters">
+
+    <!-- TODO: Figure out why some files require referencing the common styles to access PrimaryColor, etc., while others do not -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Common.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+    
+    <Style x:Key="StandardPage" TargetType="phone:PhoneApplicationPage">
+        <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeNormal}"/>
+        <Setter Property="SupportedOrientations" Value="PortraitOrLandscape"/>
+        <Setter Property="shell:SystemTray.IsVisible" Value="True"/>
+    </Style>
+
+    <Style TargetType="controls:PageContent">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:PageContent">
+                    <Border x:Name="LayoutRoot" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Background="{StaticResource PrimaryBrush}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="60" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0"
+                                        x:Name="SecondaryActionButton"
+                                        Visibility="{Binding SecondaryActionControl, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource IconButton}">
+                                    <ContentControl Width="36"
+                                                    Content="{TemplateBinding SecondaryActionControl}" />
+                                </Button>
+                                
+                                <TextBlock Grid.Column="1"
+                                           Text="{TemplateBinding Header}"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="{StaticResource PhoneMargin}"
+                                           FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                           FontFamily="{StaticResource PhoneFontFamilySemiBold}"
+                                           TextTrimming="WordEllipsis"/>
+
+                                <Button Grid.Column="2"
+                                        x:Name="PrimaryActionButton"
+                                        Visibility="{Binding PrimaryActionControl, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"
+                                        HorizontalAlignment="Right"
+                                        Style="{StaticResource IconButton}">
+                                    <ContentControl Width="36"
+                                                    Content="{TemplateBinding PrimaryActionControl}" />
+                                </Button>
+                            </Grid>
+
+                            <ContentPresenter Grid.Row="1"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
